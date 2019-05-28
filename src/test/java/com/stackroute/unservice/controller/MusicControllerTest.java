@@ -96,7 +96,6 @@ public class MusicControllerTest {
 //                .andDo(MockMvcResultHandlers.print());
 //    }
 
-
     @Test
     public void updateMusicTestSuccess() throws Exception {
         when(musicService.updateMusic(any())).thenReturn(music);
@@ -107,8 +106,6 @@ public class MusicControllerTest {
 
 
     }
-
-
 
 
     @Test
