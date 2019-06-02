@@ -1,4 +1,4 @@
-package com.stackroute.unservice;
+package com.stackroute.musicApplication;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

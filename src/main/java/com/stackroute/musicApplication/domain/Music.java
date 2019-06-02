@@ -1,4 +1,4 @@
-package com.stackroute.unservice.domain;
+package com.stackroute.musicApplication.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,9 +19,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
     public class Music {
         @Id
-                 int id;
-                String name;
-                String comments;
+                private int id;
+                private String name;
+                private String comments;
 
 
     }

@@ -1,10 +1,10 @@
-package com.stackroute.unservice.service;
+package com.stackroute.musicApplication.service;
 
-import com.stackroute.unservice.domain.Music;
+import com.stackroute.musicApplication.domain.Music;
 
-import com.stackroute.unservice.exceptions.MusicAlreadyExistsException;
-import com.stackroute.unservice.exceptions.MusicNotFoundException;
-import com.stackroute.unservice.repository.MusicRepository;
+import com.stackroute.musicApplication.exceptions.MusicAlreadyExistsException;
+import com.stackroute.musicApplication.exceptions.MusicNotFoundException;
+import com.stackroute.musicApplication.repository.MusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class MusicServiceImpl implements MusicService {
         this.musicRepository = musicRepository;
     }
 
-
+    // save music
     @Override
     public Music saveMusic(Music music) throws MusicAlreadyExistsException {
         if (musicRepository.existsById(music.getId())) {
@@ -31,19 +31,22 @@ public class MusicServiceImpl implements MusicService {
         return savedMusic;
     }
 
+    // display all music
     @Override
     public List<Music> getAllMusic() {
         return musicRepository.findAll();
 
     }
 
+    // delete music by id
     @Override
-    public List<Music> deleteMusic(int id) {
-    musicRepository.deleteById(id);
-    return null;
+    public List<Music> deleteMusic(int id) throws MusicNotFoundException{
+        musicRepository.deleteById(id);
+        return null;
 
     }
 
+    // update music by id
     @Override
     public Music updateMusic(Music music) throws MusicNotFoundException{
         if (musicRepository.existsById(music.getId())) {
@@ -54,17 +57,7 @@ public class MusicServiceImpl implements MusicService {
         return savedMusic;
 
     }
-//
-//    @Override
-//    public List<Music> getMusicByName(String name) throws MusicNotFoundException {
-//        List<Music> listOfTracks = null;
-//        listOfTracks = musicRepository.getMusicByName(name);
-//        if (listOfTracks.equals(null))
-//        {
-//            throw new MusicNotFoundException("Music not found exception");
-//        }
-//        return listOfTracks;
-//    }
+    // seed data
 
     @Override
     public void setData(Music music){
@@ -77,10 +70,3 @@ public class MusicServiceImpl implements MusicService {
 
 
 }
-
-
-
-
-
-
-

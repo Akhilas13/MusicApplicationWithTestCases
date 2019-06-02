@@ -1,10 +1,9 @@
-package com.stackroute.unservice.controller;
+package com.stackroute.musicApplication.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stackroute.unservice.domain.Music;
-import com.stackroute.unservice.exceptions.MusicAlreadyExistsException;
-import com.stackroute.unservice.repository.MusicRepository;
-import com.stackroute.unservice.service.MusicService;
+import com.stackroute.musicApplication.domain.Music;
+import com.stackroute.musicApplication.exceptions.MusicAlreadyExistsException;
+import com.stackroute.musicApplication.service.MusicService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +53,7 @@ public class MusicControllerTest {
         list.add(music);
     }
 
-    @Test
+    @Test //success test case for save music
     public void saveMusicTestSuccess() throws Exception {
         when(musicService.saveMusic(any())).thenReturn(music);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user")
@@ -66,7 +65,7 @@ public class MusicControllerTest {
 
     }
 
-    @Test
+    @Test //failure test case for save music
     public void saveMusicTestFailure() throws Exception {
         when(musicService.saveMusic(any())).thenThrow(MusicAlreadyExistsException.class);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user")
@@ -75,7 +74,7 @@ public class MusicControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    @Test
+    @Test // success test case for get all music
     public void getAllMusicTestSuccess() throws Exception {
         when(musicService.getAllMusic()).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user")
@@ -87,16 +86,7 @@ public class MusicControllerTest {
 
 
 
-//    @Test
-//    public void getAllMusicTestFailure() throws Exception {
-//        when(musicService.getAllMusic()).thenThrow(MusicAlreadyExistsException.class);
-//        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user")
-//                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(null)))
-//                .andExpect(MockMvcResultMatchers.status().isConflict())
-//                .andDo(MockMvcResultHandlers.print());
-//    }
-
-    @Test
+    @Test // success test case for update music
     public void updateMusicTestSuccess() throws Exception {
         when(musicService.updateMusic(any())).thenReturn(music);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user")
@@ -108,7 +98,7 @@ public class MusicControllerTest {
     }
 
 
-    @Test
+    @Test // success test case for delete music
     public void deleteMusicTestSuccess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/user/{id}",1)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(music)))
@@ -116,22 +106,6 @@ public class MusicControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-
-
-
-
-
-
-//    @Test
-//    public void getMusicByName() throws Exception{
-//        when(musicService.getMusicByName(any())).thenReturn(null);
-//        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user")
-//                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(music)))
-//                .andExpect(MockMvcResultMatchers.status().isCreated())
-//                .andDo(MockMvcResultHandlers.print());
-//
-//
-//    }
 
     private static String asJsonString(final Object obj)
     {

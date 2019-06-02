@@ -1,4 +1,4 @@
-package com.stackroute.unservice.config;
+package com.stackroute.musicApplication.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-//package com.stackroute.unservice;
+//package com.stackroute.musicApplication.seedData;
 //
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -19,4 +19,3 @@
 //        logger.info("App", Arrays.toString(args));
 //    }
 //}
-

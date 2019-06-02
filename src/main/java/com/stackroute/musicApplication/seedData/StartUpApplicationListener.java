@@ -1,15 +1,16 @@
-package com.stackroute.unservice;
-import com.stackroute.unservice.domain.Music;
-import com.stackroute.unservice.repository.MusicRepository;
-import com.stackroute.unservice.service.MusicService;
+package com.stackroute.musicApplication.seedData;
+
+import com.stackroute.musicApplication.domain.Music;
+import com.stackroute.musicApplication.repository.MusicRepository;
+import com.stackroute.musicApplication.service.MusicService;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.jboss.logging.Logger;
 
-//import java.util.logging.Logger;
+
 
 @Component
 @PropertySource("classpath:application.properties")
@@ -17,10 +18,10 @@ public class StartUpApplicationListener implements ApplicationListener<ContextRe
     private static final Logger logs = Logger.getLogger(StartUpApplicationListener.class);
     private MusicRepository musicRepository;
 
+
     @Autowired
     MusicService musicService;
     Music track2;
-
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -35,7 +36,4 @@ public class StartUpApplicationListener implements ApplicationListener<ContextRe
 
         logs.info("data successfully inserted");
     }
-
 }
-
-

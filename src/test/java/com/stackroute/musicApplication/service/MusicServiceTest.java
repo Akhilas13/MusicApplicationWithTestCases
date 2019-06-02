@@ -1,9 +1,9 @@
-package com.stackroute.unservice.service;
+package com.stackroute.musicApplication.service;
 
-import com.stackroute.unservice.domain.Music;
-import com.stackroute.unservice.exceptions.MusicAlreadyExistsException;
-import com.stackroute.unservice.exceptions.MusicNotFoundException;
-import com.stackroute.unservice.repository.MusicRepository;
+import com.stackroute.musicApplication.domain.Music;
+import com.stackroute.musicApplication.exceptions.MusicAlreadyExistsException;
+import com.stackroute.musicApplication.exceptions.MusicNotFoundException;
+import com.stackroute.musicApplication.repository.MusicRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +16,6 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
-
 
 
 public class MusicServiceTest {
@@ -51,7 +49,7 @@ public class MusicServiceTest {
     public void saveMusicTestSuccess() throws MusicAlreadyExistsException {
 
         when(musicRepository.save((Music) any())).thenReturn(music);
-            Music savedUser = musicService.saveMusic(music);
+        Music savedUser = musicService.saveMusic(music);
         Assert.assertEquals(music,savedUser);
 
         //verify here verifies that userRepository save method is only called once
@@ -73,7 +71,7 @@ public class MusicServiceTest {
     }
 
     @Test
-    public void getAllMusicTestSuccess(){
+    public void getAllMusicTestSuccess() {
 
         musicRepository.save(music);
         //stubbing the mock to return specific data
@@ -85,7 +83,7 @@ public class MusicServiceTest {
     @Test
     public void getAllMusicTestFailure() throws MusicAlreadyExistsException{
         when(musicRepository.save((Music)any())).thenReturn(null);
-         musicService.getAllMusic();
+        musicService.getAllMusic();
 
 
     }
@@ -119,12 +117,12 @@ public class MusicServiceTest {
 
 
     @Test
-    public void deleteMusicTestSuccess(){
+    public void deleteMusicTestSuccess() throws MusicNotFoundException{
 
         musicRepository.save(music);
         //stubbing the mock to return specific data
         when(musicRepository.findAll()).thenReturn(list);
-         musicService.deleteMusic(101);
+        musicService.deleteMusic(101);
         //Assert.assertEquals(list,userlist);
 
     }

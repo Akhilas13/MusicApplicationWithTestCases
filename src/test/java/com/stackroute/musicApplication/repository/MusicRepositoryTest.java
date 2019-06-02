@@ -1,17 +1,13 @@
-package com.stackroute.unservice.repository;
+package com.stackroute.musicApplication.repository;
 
-import com.stackroute.unservice.MusicServiceApplication;
-import com.stackroute.unservice.domain.Music;
+import com.stackroute.musicApplication.domain.Music;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -25,8 +21,7 @@ public class MusicRepositoryTest {
     private Music music;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         music = new Music();
         music.setId(10);
         music.setName("John");
@@ -35,68 +30,64 @@ public class MusicRepositoryTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
 
         musicRepository.deleteAll();
     }
 
 
-    @Test
-    public void testSaveMusicSuccess(){
+    @Test //success test case for save music
+    public void testSaveMusicSuccess() {
         musicRepository.save(music);
         Music fetchMusic = musicRepository.findById(music.getId()).get();
-        Assert.assertEquals(10,fetchMusic.getId());
+        Assert.assertEquals(10, fetchMusic.getId());
 
     }
 
-    @Test
-    public void testSaveMusicFailure(){
-        Music testMusic = new Music(23,"john","marry");
+    @Test // failure test case for save music
+    public void testSaveMusicFailure() {
+        Music testMusic = new Music(23, "john", "marry");
         musicRepository.save(music);
         Music fetchMusic = musicRepository.findById(music.getId()).get();
-        Assert.assertNotSame(testMusic,music);
+        Assert.assertNotSame(testMusic, music);
     }
 
-    @Test
-    public void testGetAllMusicSuccess(){
-        Music u = new Music(67,"welcome","jerry");
-        Music u1 = new Music(87,"Jenny","trew");
+    @Test // success test case for get all music
+    public void testGetAllMusicSuccess() {
+        Music u = new Music(67, "welcome", "jerry");
+        Music u1 = new Music(87, "Jenny", "trew");
         musicRepository.save(u);
         musicRepository.save(u1);
 
         List<Music> list = musicRepository.findAll();
-        Assert.assertEquals("welcome",list.get(0).getName());
+        Assert.assertEquals("welcome", list.get(0).getName());
 
 
     }
 
 
-
-    @Test
-    public void updateMusicSuccess(){
-        Music m1=new Music(26,"rAJ","MALYA");
+    @Test // success test case for update music
+    public void updateMusicSuccess() {
+        Music m1 = new Music(26, "rAJ", "MALYA");
         musicRepository.save(m1);
 
     }
 
 
-    @Test
-    public void updateMusicFailure(){
-        Music testMusic = new Music(27,"john","marry");
+    @Test // failure test case for update music
+    public void updateMusicFailure() {
+        Music testMusic = new Music(27, "john", "marry");
         musicRepository.save(music);
         Music fetchMusic = musicRepository.findById(music.getId()).get();
-        Assert.assertNotSame(testMusic,music);
+        Assert.assertNotSame(testMusic, music);
     }
 
 
-
-    @Test
-    public void deleteMusicTestSuccess(){
-        Music m1=new Music(1,"hello","adele");
+    @Test // success test case for delete music
+    public void deleteMusicTestSuccess() {
+        Music m1 = new Music(1, "hello", "adele");
         musicRepository.delete(m1);
     }
-
-
 
 
 }

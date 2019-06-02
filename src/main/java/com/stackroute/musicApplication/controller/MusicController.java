@@ -1,20 +1,14 @@
-package com.stackroute.unservice.controller;
+package com.stackroute.musicApplication.controller;
 
-import com.stackroute.unservice.domain.Music;
-
-import com.stackroute.unservice.exceptions.MusicAlreadyExistsException;
-
-import com.stackroute.unservice.exceptions.MusicNotFoundException;
-import com.stackroute.unservice.service.MusicService;
-import io.swagger.annotations.ApiOperation;
+import com.stackroute.musicApplication.domain.Music;
+import com.stackroute.musicApplication.exceptions.MusicAlreadyExistsException;
+import com.stackroute.musicApplication.exceptions.MusicNotFoundException;
+import com.stackroute.musicApplication.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -36,7 +30,7 @@ public class MusicController {
 
 
 
-   // @ApiOperation(value = "save music")
+    // method to save music
     @PostMapping("/user")
     public ResponseEntity<?> saveMusic(@RequestBody Music music) throws MusicAlreadyExistsException {
         ResponseEntity responseEntity;
@@ -46,7 +40,7 @@ public class MusicController {
         } catch (MusicAlreadyExistsException ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
             ex.printStackTrace();
-          // throw ex;
+            // throw ex;
 
         }
         return responseEntity; // represents complete http request including response body,status code and header
@@ -54,26 +48,47 @@ public class MusicController {
 
 
 
-    //@ApiOperation(value = "get all music")
+    // method to get all music
     @GetMapping("/user")
-    public ResponseEntity<?> getAllMusic() {
+    public ResponseEntity<?> getAllMusic() throws MusicNotFoundException {
         ResponseEntity responseEntity;
-        return new ResponseEntity<List<Music>>(musicService.getAllMusic(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<List<Music>>(musicService.getAllMusic(), HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            e.getMessage();
+            responseEntity=new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+
+        }
+        return responseEntity;
+
     }
 
 
 
 
-    //@ApiOperation(value = "delete music")
+    // method to delete music
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> deleteMusic(@PathVariable int id) {
-        musicService.deleteMusic(id);
-        return new ResponseEntity<String>("successfully deleted", HttpStatus.OK);
+    public ResponseEntity<?> deleteMusic(@PathVariable int id) throws MusicNotFoundException {
+
+
+        ResponseEntity responseEntity=null;
+        try {
+            return new ResponseEntity( musicService.deleteMusic(id), HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
+        }
+
     }
 
 
 
-    //@ApiOperation(value = "update music")
+    // method to update music
     @PutMapping("/user")
     public ResponseEntity<Music> updateMusic(@RequestBody Music music) throws MusicNotFoundException {
         ResponseEntity responseEntity;
@@ -83,7 +98,7 @@ public class MusicController {
         } catch (MusicNotFoundException ex){
             throw ex;
             //responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
-           // ex.printStackTrace();
+            // ex.printStackTrace();
 
         }
 
@@ -92,24 +107,7 @@ public class MusicController {
 
 
 
-//   // @ApiOperation(value = "get music by name")
-//    @GetMapping("/user/{name}")
-//    public ResponseEntity<List<Music>> getMusicByName(@PathVariable String name) throws Exception {
-//        List<Music> music1 = musicService.getMusicByName(name);
-//        return new ResponseEntity<List<Music>>(music1, HttpStatus.OK);
-//
-//
-//    }
-//
 
 
 
 }
-
-
-
-
-
-
-
-

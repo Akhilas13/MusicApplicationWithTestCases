@@ -1,4 +1,4 @@
-package com.stackroute.unservice.exceptions;
+package com.stackroute.musicApplication.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,18 +11,14 @@ public class MusicGlobalExceptionHandling extends ResponseEntityExceptionHandler
 
 
     @ExceptionHandler(value = MusicNotFoundException.class)
-    public ResponseEntity<Object> exception(MusicNotFoundException exception)
-    {
-        return new ResponseEntity<>("Music not found", HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> exception(MusicNotFoundException exception) {
+        return new ResponseEntity<>("Music not found", HttpStatus.OK);
     }
 
     @ExceptionHandler(value = MusicAlreadyExistsException.class)
-    public ResponseEntity<Object> exception(MusicAlreadyExistsException exception)
-    {
-        return new ResponseEntity<>("Music Already exists", HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> exception(MusicAlreadyExistsException exception) {
+        return new ResponseEntity<>("Music Already exists", HttpStatus.OK);
     }
-
-
 
 
 }
